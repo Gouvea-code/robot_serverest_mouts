@@ -1,0 +1,926 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.13.2 on win32)" generated="2025-03-06T17:15:22.146578" rpa="false" schemaversion="5">
+<suite id="s1" name="Api" source="C:\Users\nlnor\Documents\robot_serverest\tests\api">
+<suite id="s1-s1" name="Login Tests" source="C:\Users\nlnor\Documents\robot_serverest\tests\api\login_tests.robot">
+<test id="s1-s1-t1" name="Cenario 01: Realizar Login com Sucesso" line="8">
+<kw name="Criar Sessao" owner="common_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:22.434551" level="INFO">Creating Session using : alias=serverest, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>serverest</arg>
+<arg>${API_URL}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-06T17:15:22.434405" elapsed="0.000276"/>
+</kw>
+<status status="PASS" start="2025-03-06T17:15:22.433971" elapsed="0.000773"/>
+</kw>
+<kw name="Gerar Email Aleatorio" owner="common_keywords">
+<kw name="Generate Random String" owner="String">
+<msg time="2025-03-06T17:15:22.435788" level="INFO">${RANDOM_STRING} = adhymamc</msg>
+<var>${RANDOM_STRING}</var>
+<arg>8</arg>
+<arg>[LOWER]</arg>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<status status="PASS" start="2025-03-06T17:15:22.435390" elapsed="0.000424"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-06T17:15:22.436040" level="INFO">${EMAIL_RANDOM} = adhymamc@teste.com</msg>
+<var>${EMAIL_RANDOM}</var>
+<arg>${RANDOM_STRING}@teste.com</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-06T17:15:22.435907" elapsed="0.000153"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2025-03-06T17:15:22.436292" level="INFO">${EMAIL_RANDOM} = adhymamc@teste.com</msg>
+<arg>${EMAIL_RANDOM}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2025-03-06T17:15:22.436149" elapsed="0.000177"/>
+</kw>
+<return>
+<value>${EMAIL_RANDOM}</value>
+<status status="PASS" start="2025-03-06T17:15:22.436372" elapsed="0.000047"/>
+</return>
+<msg time="2025-03-06T17:15:22.436529" level="INFO">${EMAIL} = adhymamc@teste.com</msg>
+<var>${EMAIL}</var>
+<status status="PASS" start="2025-03-06T17:15:22.435146" elapsed="0.001405"/>
+</kw>
+<kw name="Cadastrar Um Novo Usuario" owner="usuarios_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-06T17:15:22.437492" level="INFO">${BODY} = {'nome': 'Usuario Login', 'email': 'adhymamc@teste.com', 'password': 'teste123', 'administrador': 'false'}</msg>
+<var>${BODY}</var>
+<arg>nome=${nome}</arg>
+<arg>email=${email}</arg>
+<arg>password=${password}</arg>
+<arg>administrador=${administrador}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-06T17:15:22.437201" elapsed="0.000312"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:22.796750" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '106', 'Content-Type': 'application/json'} 
+ body=b'{"nome": "Usuario Login", "email": "adhymamc@teste.com", "password": "teste123", "administrador": "false"}' 
+ </msg>
+<msg time="2025-03-06T17:15:22.796999" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '2e02680b1bb3f093d85514353a1ac690;o=1', 'Date': 'Thu, 06 Mar 2025 20:16:03 GMT', 'Server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "PQRet0gxyIerWoU4"
+} 
+ </msg>
+<msg time="2025-03-06T17:15:22.797246" level="INFO">${RESP} = &lt;Response [201]&gt;</msg>
+<var>${RESP}</var>
+<arg>serverest</arg>
+<arg>/usuarios</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-06T17:15:22.437600" elapsed="0.359709"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESP.json()["message"]}</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-06T17:15:22.797614" elapsed="0.001068"/>
+</kw>
+<return>
+<value>${RESP.json()["_id"]}</value>
+<status status="PASS" start="2025-03-06T17:15:22.798806" elapsed="0.000091"/>
+</return>
+<msg time="2025-03-06T17:15:22.799773" level="INFO">${ID_USUARIO} = PQRet0gxyIerWoU4</msg>
+<var>${ID_USUARIO}</var>
+<arg>nome=Usuario Login</arg>
+<arg>email=${EMAIL}</arg>
+<arg>password=teste123</arg>
+<arg>administrador=false</arg>
+<status status="PASS" start="2025-03-06T17:15:22.436933" elapsed="0.362901"/>
+</kw>
+<kw name="Fazer Login" owner="login_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-06T17:15:22.801951" level="INFO">${BODY} = {'email': 'adhymamc@teste.com', 'password': 'teste123'}</msg>
+<var>${BODY}</var>
+<arg>email=${email}</arg>
+<arg>password=${password}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-06T17:15:22.801450" elapsed="0.000560"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:22.979138" level="INFO">POST Request : url=https://serverest.dev/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '55', 'Content-Type': 'application/json'} 
+ body=b'{"email": "adhymamc@teste.com", "password": "teste123"}' 
+ </msg>
+<msg time="2025-03-06T17:15:22.979308" level="INFO">POST Response : url=https://serverest.dev/login 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '36c9ed3630e09c05d85514353a1acb8d', 'Date': 'Thu, 06 Mar 2025 20:16:04 GMT', 'Server': 'Google Frontend', 'Content-Length': '276'} 
+ body={
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkaHltYW1jQHRlc3RlLmNvbSIsInBhc3N3b3JkIjoidGVzdGUxMjMiLCJpYXQiOjE3NDEyOTIxNjQsImV4cCI6MTc0MTI5Mjc2NH0.dTm1pjwUL38FfqPikDy9Q22S0vrmUK_sEFwhsMCGOK4"
+} 
+ </msg>
+<msg time="2025-03-06T17:15:22.979534" level="INFO">${RESP} = &lt;Response [200]&gt;</msg>
+<var>${RESP}</var>
+<arg>serverest</arg>
+<arg>/login</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-06T17:15:22.802226" elapsed="0.177363"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESP.json()["message"]}</arg>
+<arg>Login realizado com sucesso</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-06T17:15:22.979885" elapsed="0.001327"/>
+</kw>
+<return>
+<value>${RESP.json()["authorization"]}</value>
+<status status="PASS" start="2025-03-06T17:15:22.981342" elapsed="0.000073"/>
+</return>
+<msg time="2025-03-06T17:15:22.982578" level="INFO">${TOKEN} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkaHltYW1jQHRlc3RlLmNvbSIsInBhc3N3b3JkIjoidGVzdGUxMjMiLCJpYXQiOjE3NDEyOTIxNjQsImV4cCI6MTc0MTI5Mjc2NH0.dTm1pjwUL38FfqPikDy9Q22S0vrmUK_sEFwhsMCG...</msg>
+<var>${TOKEN}</var>
+<arg>${EMAIL}</arg>
+<arg>teste123</arg>
+<status status="PASS" start="2025-03-06T17:15:22.800658" elapsed="0.182295"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2025-03-06T17:15:22.983919" level="INFO">Length is 203.</msg>
+<arg>${TOKEN}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2025-03-06T17:15:22.983639" elapsed="0.000367"/>
+</kw>
+<kw name="Excluir Usuario" owner="usuarios_keywords">
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:23.155672" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/PQRet0gxyIerWoU4 
+ path_url=/usuarios/PQRet0gxyIerWoU4 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-06T17:15:23.155755" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/PQRet0gxyIerWoU4 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '901bf6513daaba2ed85514353a1ac039', 'Date': 'Thu, 06 Mar 2025 20:16:04 GMT', 'Server': 'Google Frontend', 'Content-Length': '51'} 
+ body={
+    "message": "Registro excluído com sucesso"
+} 
+ </msg>
+<msg time="2025-03-06T17:15:23.155867" level="INFO">${RESP} = &lt;Response [200]&gt;</msg>
+<var>${RESP}</var>
+<arg>serverest</arg>
+<arg>/usuarios/${id_usuario}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-06T17:15:22.985215" elapsed="0.170676"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESP.json()["message"]}</arg>
+<arg>Registro excluído com sucesso</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.156031" elapsed="0.000443"/>
+</kw>
+<arg>${ID_USUARIO}</arg>
+<status status="PASS" start="2025-03-06T17:15:22.984732" elapsed="0.171809"/>
+</kw>
+<doc>Este teste cria um usuário e realiza login com as credenciais</doc>
+<tag>login</tag>
+<tag>regressao</tag>
+<status status="PASS" start="2025-03-06T17:15:22.433307" elapsed="0.723508"/>
+</test>
+<doc>Testes de API para o endpoint de Login do ServerRest</doc>
+<status status="PASS" start="2025-03-06T17:15:22.167624" elapsed="0.990620"/>
+</suite>
+<suite id="s1-s2" name="Produtos Tests" source="C:\Users\nlnor\Documents\robot_serverest\tests\api\produtos_tests.robot">
+<test id="s1-s2-t1" name="Cenario 01: Cadastrar e Consultar Um Produto" line="9">
+<kw name="Criar Sessao" owner="common_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:23.168226" level="INFO">Creating Session using : alias=serverest, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>serverest</arg>
+<arg>${API_URL}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-06T17:15:23.168063" elapsed="0.000319"/>
+</kw>
+<status status="PASS" start="2025-03-06T17:15:23.167833" elapsed="0.000624"/>
+</kw>
+<kw name="Gerar Email Aleatorio" owner="common_keywords">
+<kw name="Generate Random String" owner="String">
+<msg time="2025-03-06T17:15:23.169111" level="INFO">${RANDOM_STRING} = vhsniizv</msg>
+<var>${RANDOM_STRING}</var>
+<arg>8</arg>
+<arg>[LOWER]</arg>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.168958" elapsed="0.000172"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-06T17:15:23.169299" level="INFO">${EMAIL_RANDOM} = vhsniizv@teste.com</msg>
+<var>${EMAIL_RANDOM}</var>
+<arg>${RANDOM_STRING}@teste.com</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.169202" elapsed="0.000112"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2025-03-06T17:15:23.169486" level="INFO">${EMAIL_RANDOM} = vhsniizv@teste.com</msg>
+<arg>${EMAIL_RANDOM}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.169381" elapsed="0.000128"/>
+</kw>
+<return>
+<value>${EMAIL_RANDOM}</value>
+<status status="PASS" start="2025-03-06T17:15:23.169538" elapsed="0.000026"/>
+</return>
+<msg time="2025-03-06T17:15:23.169634" level="INFO">${EMAIL} = vhsniizv@teste.com</msg>
+<var>${EMAIL}</var>
+<status status="PASS" start="2025-03-06T17:15:23.168795" elapsed="0.000853"/>
+</kw>
+<kw name="Cadastrar Um Novo Usuario" owner="usuarios_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-06T17:15:23.170778" level="INFO">${BODY} = {'nome': 'Admin Teste', 'email': 'vhsniizv@teste.com', 'password': 'teste123', 'administrador': 'true'}</msg>
+<var>${BODY}</var>
+<arg>nome=${nome}</arg>
+<arg>email=${email}</arg>
+<arg>password=${password}</arg>
+<arg>administrador=${administrador}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.170526" elapsed="0.000275"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:23.542990" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '103', 'Content-Type': 'application/json'} 
+ body=b'{"nome": "Admin Teste", "email": "vhsniizv@teste.com", "password": "teste123", "administrador": "true"}' 
+ </msg>
+<msg time="2025-03-06T17:15:23.543172" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '4b5e8bdf2188c1307c236916cbeac8a7', 'Date': 'Thu, 06 Mar 2025 20:16:04 GMT', 'Server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "DgstPZauUAL1La2k"
+} 
+ </msg>
+<msg time="2025-03-06T17:15:23.543394" level="INFO">${RESP} = &lt;Response [201]&gt;</msg>
+<var>${RESP}</var>
+<arg>serverest</arg>
+<arg>/usuarios</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.170871" elapsed="0.372578"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESP.json()["message"]}</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.543751" elapsed="0.001019"/>
+</kw>
+<return>
+<value>${RESP.json()["_id"]}</value>
+<status status="PASS" start="2025-03-06T17:15:23.544887" elapsed="0.000072"/>
+</return>
+<msg time="2025-03-06T17:15:23.545857" level="INFO">${ID_USUARIO} = DgstPZauUAL1La2k</msg>
+<var>${ID_USUARIO}</var>
+<arg>nome=Admin Teste</arg>
+<arg>email=${EMAIL}</arg>
+<arg>password=teste123</arg>
+<arg>administrador=true</arg>
+<status status="PASS" start="2025-03-06T17:15:23.170302" elapsed="0.375607"/>
+</kw>
+<kw name="Fazer Login" owner="login_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-06T17:15:23.547903" level="INFO">${BODY} = {'email': 'vhsniizv@teste.com', 'password': 'teste123'}</msg>
+<var>${BODY}</var>
+<arg>email=${email}</arg>
+<arg>password=${password}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.547473" elapsed="0.000482"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:23.739968" level="INFO">POST Request : url=https://serverest.dev/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '55', 'Content-Type': 'application/json'} 
+ body=b'{"email": "vhsniizv@teste.com", "password": "teste123"}' 
+ </msg>
+<msg time="2025-03-06T17:15:23.740118" level="INFO">POST Response : url=https://serverest.dev/login 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '93cdf4a284e0ba287c236916cbeac995', 'Date': 'Thu, 06 Mar 2025 20:16:04 GMT', 'Server': 'Google Frontend', 'Content-Length': '276'} 
+ body={
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZoc25paXp2QHRlc3RlLmNvbSIsInBhc3N3b3JkIjoidGVzdGUxMjMiLCJpYXQiOjE3NDEyOTIxNjQsImV4cCI6MTc0MTI5Mjc2NH0.IGlRVSisBfWYn37zEmhx0OLsS6hSWAUN3UFXdMOKYm4"
+} 
+ </msg>
+<msg time="2025-03-06T17:15:23.740316" level="INFO">${RESP} = &lt;Response [200]&gt;</msg>
+<var>${RESP}</var>
+<arg>serverest</arg>
+<arg>/login</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.548152" elapsed="0.192212"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESP.json()["message"]}</arg>
+<arg>Login realizado com sucesso</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.740630" elapsed="0.001040"/>
+</kw>
+<return>
+<value>${RESP.json()["authorization"]}</value>
+<status status="PASS" start="2025-03-06T17:15:23.741780" elapsed="0.000065"/>
+</return>
+<msg time="2025-03-06T17:15:23.742566" level="INFO">${TOKEN} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZoc25paXp2QHRlc3RlLmNvbSIsInBhc3N3b3JkIjoidGVzdGUxMjMiLCJpYXQiOjE3NDEyOTIxNjQsImV4cCI6MTc0MTI5Mjc2NH0.IGlRVSisBfWYn37zEmhx0OLsS6hSWAUN3UFXdMOK...</msg>
+<var>${TOKEN}</var>
+<arg>${EMAIL}</arg>
+<arg>teste123</arg>
+<status status="PASS" start="2025-03-06T17:15:23.546910" elapsed="0.195706"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-06T17:15:23.743502" level="INFO">${NOME_PRODUTO} = Produto Robot Framework</msg>
+<var>${NOME_PRODUTO}</var>
+<arg>Produto Robot Framework</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.743233" elapsed="0.000321"/>
+</kw>
+<kw name="Cadastrar Um Novo Produto" owner="produtos_keywords">
+<kw name="Convert To Number" owner="BuiltIn">
+<msg time="2025-03-06T17:15:23.746203" level="INFO">${PRECO_NUM} = 99.0</msg>
+<var>${PRECO_NUM}</var>
+<arg>${preco}</arg>
+<doc>Converts the given item to a floating point number.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.745869" elapsed="0.000388"/>
+</kw>
+<kw name="Convert To Number" owner="BuiltIn">
+<msg time="2025-03-06T17:15:23.746753" level="INFO">${QUANTIDADE_NUM} = 10.0</msg>
+<var>${QUANTIDADE_NUM}</var>
+<arg>${quantidade}</arg>
+<doc>Converts the given item to a floating point number.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.746460" elapsed="0.000337"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-06T17:15:23.747555" level="INFO">${BODY} = {'nome': 'Produto Robot Framework', 'preco': 99.0, 'descricao': 'Produto criado pelo teste automatizado', 'quantidade': 10.0}</msg>
+<var>${BODY}</var>
+<arg>nome=${nome}</arg>
+<arg>preco=${PRECO_NUM}</arg>
+<arg>descricao=${descricao}</arg>
+<arg>quantidade=${QUANTIDADE_NUM}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.746985" elapsed="0.000618"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-06T17:15:23.748136" level="INFO">${HEADERS} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZoc25paXp2QHRlc3RlLmNvbSIsInBhc3N3b3JkIjoidGVzdGUxMjMiLCJpYXQiOjE3NDEyOTIxNjQsImV4cCI6MTc0MTI5Mjc2NH0.IGlRVSisBfWYn37zEmhx0...</msg>
+<var>${HEADERS}</var>
+<arg>Authorization=${token}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.747810" elapsed="0.000374"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:23.952628" level="INFO">POST Request : url=https://serverest.dev/produtos 
+ path_url=/produtos 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZoc25paXp2QHRlc3RlLmNvbSIsInBhc3N3b3JkIjoidGVzdGUxMjMiLCJpYXQiOjE3NDEyOTIxNjQsImV4cCI6MTc0MTI5Mjc2NH0.IGlRVSisBfWYn37zEmhx0OLsS6hSWAUN3UFXdMOKYm4', 'Content-Type': 'application/json', 'Content-Length': '125'} 
+ body=b'{"nome": "Produto Robot Framework", "preco": 99.0, "descricao": "Produto criado pelo teste automatizado", "quantidade": 10.0}' 
+ </msg>
+<msg time="2025-03-06T17:15:23.952795" level="INFO">POST Response : url=https://serverest.dev/produtos 
+ status=400, reason=Bad Request 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': 'e0851a895cf114807c236916cbeac2db', 'Date': 'Thu, 06 Mar 2025 20:16:05 GMT', 'Server': 'Google Frontend', 'Content-Length': '53'} 
+ body={
+    "message": "Já existe produto com esse nome"
+} 
+ </msg>
+<msg time="2025-03-06T17:15:23.953081" level="FAIL">Url: https://serverest.dev/produtos Expected status: 400 != 201</msg>
+<var>${RESP}</var>
+<arg>serverest</arg>
+<arg>/produtos</arg>
+<arg>json=${BODY}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-03-06T17:15:23.748362" elapsed="0.209411">Url: https://serverest.dev/produtos Expected status: 400 != 201</status>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Resposta: ${RESP.text}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-06T17:15:23.958135" elapsed="0.000056"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESP.json()["message"]}</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" start="2025-03-06T17:15:23.958395" elapsed="0.000039"/>
+</kw>
+<return>
+<value>${RESP.json()["_id"]}</value>
+<status status="NOT RUN" start="2025-03-06T17:15:23.958524" elapsed="0.000033"/>
+</return>
+<var>${ID_PRODUTO}</var>
+<arg>token=${TOKEN}</arg>
+<arg>nome=${NOME_PRODUTO}</arg>
+<arg>preco=99</arg>
+<arg>descricao=Produto criado pelo teste automatizado</arg>
+<arg>quantidade=10</arg>
+<status status="FAIL" start="2025-03-06T17:15:23.744265" elapsed="0.214522">Url: https://serverest.dev/produtos Expected status: 400 != 201</status>
+</kw>
+<kw name="Buscar Produto Por ID" owner="produtos_keywords">
+<var>${PRODUTO}</var>
+<arg>${ID_PRODUTO}</arg>
+<status status="NOT RUN" start="2025-03-06T17:15:23.960064" elapsed="0.000065"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${PRODUTO["nome"]}</arg>
+<arg>${NOME_PRODUTO}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" start="2025-03-06T17:15:23.960745" elapsed="0.000062"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${PRODUTO["preco"]}</arg>
+<arg>${99}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2025-03-06T17:15:23.961433" elapsed="0.000059"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${PRODUTO["descricao"]}</arg>
+<arg>Produto criado pelo teste automatizado</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" start="2025-03-06T17:15:23.962858" elapsed="0.000060"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${PRODUTO["quantidade"]}</arg>
+<arg>${10}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2025-03-06T17:15:23.963518" elapsed="0.000061"/>
+</kw>
+<kw name="Excluir Usuario" owner="usuarios_keywords">
+<arg>${ID_USUARIO}</arg>
+<status status="NOT RUN" start="2025-03-06T17:15:23.964254" elapsed="0.000063"/>
+</kw>
+<doc>Este teste faz login como admin, cadastra um produto e verifica se foi criado</doc>
+<tag>produtos</tag>
+<tag>regressao</tag>
+<status status="FAIL" start="2025-03-06T17:15:23.167148" elapsed="0.797817">Url: https://serverest.dev/produtos Expected status: 400 != 201</status>
+</test>
+<test id="s1-s2-t2" name="Cenario 02: Criar Um Carrinho de Compras" line="48">
+<kw name="Criar Sessao" owner="common_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:23.970488" level="INFO">Creating Session using : alias=serverest, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>serverest</arg>
+<arg>${API_URL}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-06T17:15:23.970151" elapsed="0.000624"/>
+</kw>
+<status status="PASS" start="2025-03-06T17:15:23.969671" elapsed="0.001241"/>
+</kw>
+<kw name="Gerar Email Aleatorio" owner="common_keywords">
+<kw name="Generate Random String" owner="String">
+<msg time="2025-03-06T17:15:23.972701" level="INFO">${RANDOM_STRING} = yjczpuin</msg>
+<var>${RANDOM_STRING}</var>
+<arg>8</arg>
+<arg>[LOWER]</arg>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.972208" elapsed="0.000577"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-06T17:15:23.973359" level="INFO">${EMAIL_RANDOM} = yjczpuin@teste.com</msg>
+<var>${EMAIL_RANDOM}</var>
+<arg>${RANDOM_STRING}@teste.com</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.973051" elapsed="0.000360"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2025-03-06T17:15:23.973925" level="INFO">${EMAIL_RANDOM} = yjczpuin@teste.com</msg>
+<arg>${EMAIL_RANDOM}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.973630" elapsed="0.000369"/>
+</kw>
+<return>
+<value>${EMAIL_RANDOM}</value>
+<status status="PASS" start="2025-03-06T17:15:23.974087" elapsed="0.000064"/>
+</return>
+<msg time="2025-03-06T17:15:23.974369" level="INFO">${EMAIL} = yjczpuin@teste.com</msg>
+<var>${EMAIL}</var>
+<status status="PASS" start="2025-03-06T17:15:23.971618" elapsed="0.002795"/>
+</kw>
+<kw name="Cadastrar Um Novo Usuario" owner="usuarios_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-06T17:15:23.976769" level="INFO">${BODY} = {'nome': 'Admin Carrinho', 'email': 'yjczpuin@teste.com', 'password': 'teste123', 'administrador': 'true'}</msg>
+<var>${BODY}</var>
+<arg>nome=${nome}</arg>
+<arg>email=${email}</arg>
+<arg>password=${password}</arg>
+<arg>administrador=${administrador}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.975846" elapsed="0.000984"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:24.308321" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '106', 'Content-Type': 'application/json'} 
+ body=b'{"nome": "Admin Carrinho", "email": "yjczpuin@teste.com", "password": "teste123", "administrador": "true"}' 
+ </msg>
+<msg time="2025-03-06T17:15:24.308481" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '875cb1b010c964e8b017cbf335e2bd5f', 'Date': 'Thu, 06 Mar 2025 20:16:05 GMT', 'Server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "LntrPLtO0nkxhe6K"
+} 
+ </msg>
+<msg time="2025-03-06T17:15:24.308696" level="INFO">${RESP} = &lt;Response [201]&gt;</msg>
+<var>${RESP}</var>
+<arg>serverest</arg>
+<arg>/usuarios</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-06T17:15:23.977090" elapsed="0.331659"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESP.json()["message"]}</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.309042" elapsed="0.000982"/>
+</kw>
+<return>
+<value>${RESP.json()["_id"]}</value>
+<status status="PASS" start="2025-03-06T17:15:24.310141" elapsed="0.000065"/>
+</return>
+<msg time="2025-03-06T17:15:24.311036" level="INFO">${ID_USUARIO} = LntrPLtO0nkxhe6K</msg>
+<var>${ID_USUARIO}</var>
+<arg>nome=Admin Carrinho</arg>
+<arg>email=${EMAIL}</arg>
+<arg>password=teste123</arg>
+<arg>administrador=true</arg>
+<status status="PASS" start="2025-03-06T17:15:23.975084" elapsed="0.336004"/>
+</kw>
+<kw name="Fazer Login" owner="login_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-06T17:15:24.312968" level="INFO">${BODY} = {'email': 'yjczpuin@teste.com', 'password': 'teste123'}</msg>
+<var>${BODY}</var>
+<arg>email=${email}</arg>
+<arg>password=${password}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.312501" elapsed="0.000522"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:24.494207" level="INFO">POST Request : url=https://serverest.dev/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '55', 'Content-Type': 'application/json'} 
+ body=b'{"email": "yjczpuin@teste.com", "password": "teste123"}' 
+ </msg>
+<msg time="2025-03-06T17:15:24.494365" level="INFO">POST Response : url=https://serverest.dev/login 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '4b4a73ae87a3da33b017cbf335e2b726', 'Date': 'Thu, 06 Mar 2025 20:16:05 GMT', 'Server': 'Google Frontend', 'Content-Length': '276'} 
+ body={
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlqY3pwdWluQHRlc3RlLmNvbSIsInBhc3N3b3JkIjoidGVzdGUxMjMiLCJpYXQiOjE3NDEyOTIxNjUsImV4cCI6MTc0MTI5Mjc2NX0.OdjKUTZeGOT6Virw8dYc5634UMgecDYXeBPe4l4919Y"
+} 
+ </msg>
+<msg time="2025-03-06T17:15:24.494813" level="INFO">${RESP} = &lt;Response [200]&gt;</msg>
+<var>${RESP}</var>
+<arg>serverest</arg>
+<arg>/login</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.313235" elapsed="0.181636"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESP.json()["message"]}</arg>
+<arg>Login realizado com sucesso</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.495157" elapsed="0.000964"/>
+</kw>
+<return>
+<value>${RESP.json()["authorization"]}</value>
+<status status="PASS" start="2025-03-06T17:15:24.496235" elapsed="0.000066"/>
+</return>
+<msg time="2025-03-06T17:15:24.497067" level="INFO">${TOKEN} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlqY3pwdWluQHRlc3RlLmNvbSIsInBhc3N3b3JkIjoidGVzdGUxMjMiLCJpYXQiOjE3NDEyOTIxNjUsImV4cCI6MTc0MTI5Mjc2NX0.OdjKUTZeGOT6Virw8dYc5634UMgecDYXeBPe4l49...</msg>
+<var>${TOKEN}</var>
+<arg>${EMAIL}</arg>
+<arg>teste123</arg>
+<status status="PASS" start="2025-03-06T17:15:24.311878" elapsed="0.185244"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-06T17:15:24.498121" level="INFO">${NOME_PRODUTO} = Produto para Carrinho</msg>
+<var>${NOME_PRODUTO}</var>
+<arg>Produto para Carrinho</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.497828" elapsed="0.000350"/>
+</kw>
+<kw name="Cadastrar Um Novo Produto" owner="produtos_keywords">
+<kw name="Convert To Number" owner="BuiltIn">
+<msg time="2025-03-06T17:15:24.500076" level="INFO">${PRECO_NUM} = 150.0</msg>
+<var>${PRECO_NUM}</var>
+<arg>${preco}</arg>
+<doc>Converts the given item to a floating point number.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.499733" elapsed="0.000399"/>
+</kw>
+<kw name="Convert To Number" owner="BuiltIn">
+<msg time="2025-03-06T17:15:24.500642" level="INFO">${QUANTIDADE_NUM} = 5.0</msg>
+<var>${QUANTIDADE_NUM}</var>
+<arg>${quantidade}</arg>
+<doc>Converts the given item to a floating point number.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.500332" elapsed="0.000357"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-06T17:15:24.501510" level="INFO">${BODY} = {'nome': 'Produto para Carrinho', 'preco': 150.0, 'descricao': 'Produto para teste de carrinho', 'quantidade': 5.0}</msg>
+<var>${BODY}</var>
+<arg>nome=${nome}</arg>
+<arg>preco=${PRECO_NUM}</arg>
+<arg>descricao=${descricao}</arg>
+<arg>quantidade=${QUANTIDADE_NUM}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.500939" elapsed="0.000621"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-06T17:15:24.502134" level="INFO">${HEADERS} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlqY3pwdWluQHRlc3RlLmNvbSIsInBhc3N3b3JkIjoidGVzdGUxMjMiLCJpYXQiOjE3NDEyOTIxNjUsImV4cCI6MTc0MTI5Mjc2NX0.OdjKUTZeGOT6Virw8dYc5...</msg>
+<var>${HEADERS}</var>
+<arg>Authorization=${token}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.501772" elapsed="0.000412"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:24.691977" level="INFO">POST Request : url=https://serverest.dev/produtos 
+ path_url=/produtos 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlqY3pwdWluQHRlc3RlLmNvbSIsInBhc3N3b3JkIjoidGVzdGUxMjMiLCJpYXQiOjE3NDEyOTIxNjUsImV4cCI6MTc0MTI5Mjc2NX0.OdjKUTZeGOT6Virw8dYc5634UMgecDYXeBPe4l4919Y', 'Content-Type': 'application/json', 'Content-Length': '115'} 
+ body=b'{"nome": "Produto para Carrinho", "preco": 150.0, "descricao": "Produto para teste de carrinho", "quantidade": 5.0}' 
+ </msg>
+<msg time="2025-03-06T17:15:24.692141" level="INFO">POST Response : url=https://serverest.dev/produtos 
+ status=400, reason=Bad Request 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '2e6b957ffe12e202b017cbf335e2b328', 'Date': 'Thu, 06 Mar 2025 20:16:05 GMT', 'Server': 'Google Frontend', 'Content-Length': '53'} 
+ body={
+    "message": "Já existe produto com esse nome"
+} 
+ </msg>
+<msg time="2025-03-06T17:15:24.692360" level="FAIL">Url: https://serverest.dev/produtos Expected status: 400 != 201</msg>
+<var>${RESP}</var>
+<arg>serverest</arg>
+<arg>/produtos</arg>
+<arg>json=${BODY}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-03-06T17:15:24.502374" elapsed="0.192149">Url: https://serverest.dev/produtos Expected status: 400 != 201</status>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Resposta: ${RESP.text}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-06T17:15:24.694858" elapsed="0.000055"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESP.json()["message"]}</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" start="2025-03-06T17:15:24.695114" elapsed="0.000040"/>
+</kw>
+<return>
+<value>${RESP.json()["_id"]}</value>
+<status status="NOT RUN" start="2025-03-06T17:15:24.695252" elapsed="0.000035"/>
+</return>
+<var>${ID_PRODUTO}</var>
+<arg>token=${TOKEN}</arg>
+<arg>nome=${NOME_PRODUTO}</arg>
+<arg>preco=150</arg>
+<arg>descricao=Produto para teste de carrinho</arg>
+<arg>quantidade=5</arg>
+<status status="FAIL" start="2025-03-06T17:15:24.498913" elapsed="0.196579">Url: https://serverest.dev/produtos Expected status: 400 != 201</status>
+</kw>
+<kw name="Criar Um Carrinho" owner="produtos_keywords">
+<var>${ID_CARRINHO}</var>
+<arg>token=${TOKEN}</arg>
+<arg>id_produto=${ID_PRODUTO}</arg>
+<arg>quantidade=2</arg>
+<status status="NOT RUN" start="2025-03-06T17:15:24.696523" elapsed="0.000065"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<arg>${ID_CARRINHO}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="NOT RUN" start="2025-03-06T17:15:24.697233" elapsed="0.000065"/>
+</kw>
+<kw name="Excluir Usuario" owner="usuarios_keywords">
+<arg>${ID_USUARIO}</arg>
+<status status="NOT RUN" start="2025-03-06T17:15:24.697909" elapsed="0.000054"/>
+</kw>
+<doc>Este teste cria um usuário, cadastra um produto e cria um carrinho</doc>
+<tag>carrinhos</tag>
+<tag>regressao</tag>
+<status status="FAIL" start="2025-03-06T17:15:23.968252" elapsed="0.730913">Url: https://serverest.dev/produtos Expected status: 400 != 201</status>
+</test>
+<doc>Testes de API para os endpoints de Produtos e Carrinhos do ServerRest</doc>
+<status status="FAIL" start="2025-03-06T17:15:23.160372" elapsed="1.542158"/>
+</suite>
+<suite id="s1-s3" name="Usuarios Tests" source="C:\Users\nlnor\Documents\robot_serverest\tests\api\usuarios_tests.robot">
+<test id="s1-s3-t1" name="Cenario 01: Cadastrar, Consultar e Excluir Um Usuario" line="7">
+<kw name="Criar Sessao" owner="common_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:24.720783" level="INFO">Creating Session using : alias=serverest, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>serverest</arg>
+<arg>${API_URL}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-06T17:15:24.720587" elapsed="0.000356"/>
+</kw>
+<status status="PASS" start="2025-03-06T17:15:24.720313" elapsed="0.000847"/>
+</kw>
+<kw name="Gerar Email Aleatorio" owner="common_keywords">
+<kw name="Generate Random String" owner="String">
+<msg time="2025-03-06T17:15:24.722113" level="INFO">${RANDOM_STRING} = fcncseqv</msg>
+<var>${RANDOM_STRING}</var>
+<arg>8</arg>
+<arg>[LOWER]</arg>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.721889" elapsed="0.000255"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-06T17:15:24.722435" level="INFO">${EMAIL_RANDOM} = fcncseqv@teste.com</msg>
+<var>${EMAIL_RANDOM}</var>
+<arg>${RANDOM_STRING}@teste.com</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.722262" elapsed="0.000201"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2025-03-06T17:15:24.722734" level="INFO">${EMAIL_RANDOM} = fcncseqv@teste.com</msg>
+<arg>${EMAIL_RANDOM}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.722573" elapsed="0.000203"/>
+</kw>
+<return>
+<value>${EMAIL_RANDOM}</value>
+<status status="PASS" start="2025-03-06T17:15:24.722827" elapsed="0.000039"/>
+</return>
+<msg time="2025-03-06T17:15:24.722986" level="INFO">${EMAIL} = fcncseqv@teste.com</msg>
+<var>${EMAIL}</var>
+<status status="PASS" start="2025-03-06T17:15:24.721637" elapsed="0.001378"/>
+</kw>
+<kw name="Cadastrar Um Novo Usuario" owner="usuarios_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-06T17:15:24.724331" level="INFO">${BODY} = {'nome': 'Usuario Teste', 'email': 'fcncseqv@teste.com', 'password': 'teste123', 'administrador': 'true'}</msg>
+<var>${BODY}</var>
+<arg>nome=${nome}</arg>
+<arg>email=${email}</arg>
+<arg>password=${password}</arg>
+<arg>administrador=${administrador}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.723994" elapsed="0.000371"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:25.063978" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '105', 'Content-Type': 'application/json'} 
+ body=b'{"nome": "Usuario Teste", "email": "fcncseqv@teste.com", "password": "teste123", "administrador": "true"}' 
+ </msg>
+<msg time="2025-03-06T17:15:25.064114" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': 'e23eb5d682ef3a64b200062e4c3efae5', 'Date': 'Thu, 06 Mar 2025 20:16:06 GMT', 'Server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "UxpKjnnbe3iU02gW"
+} 
+ </msg>
+<msg time="2025-03-06T17:15:25.064302" level="INFO">${RESP} = &lt;Response [201]&gt;</msg>
+<var>${RESP}</var>
+<arg>serverest</arg>
+<arg>/usuarios</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-06T17:15:24.724490" elapsed="0.339876"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESP.json()["message"]}</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-06T17:15:25.064605" elapsed="0.000995"/>
+</kw>
+<return>
+<value>${RESP.json()["_id"]}</value>
+<status status="PASS" start="2025-03-06T17:15:25.065745" elapsed="0.000087"/>
+</return>
+<msg time="2025-03-06T17:15:25.066356" level="INFO">${ID_USUARIO} = UxpKjnnbe3iU02gW</msg>
+<var>${ID_USUARIO}</var>
+<arg>nome=Usuario Teste</arg>
+<arg>email=${EMAIL}</arg>
+<arg>password=teste123</arg>
+<arg>administrador=true</arg>
+<status status="PASS" start="2025-03-06T17:15:24.723414" elapsed="0.342959"/>
+</kw>
+<kw name="Buscar Usuario Por ID" owner="usuarios_keywords">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:25.248923" level="INFO">GET Request : url=https://serverest.dev/usuarios/UxpKjnnbe3iU02gW 
+ path_url=/usuarios/UxpKjnnbe3iU02gW 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2025-03-06T17:15:25.248989" level="INFO">GET Response : url=https://serverest.dev/usuarios/UxpKjnnbe3iU02gW 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '72cdaf7aea194fc1b200062e4c3efacb', 'Date': 'Thu, 06 Mar 2025 20:16:06 GMT', 'Server': 'Google Frontend', 'Content-Length': '154'} 
+ body={
+    "nome": "Usuario Teste",
+    "email": "fcncseqv@teste.com",
+    "password": "teste123",
+    "administrador": "true",
+    "_id": "UxpKjnnbe3iU02gW"
+} 
+ </msg>
+<msg time="2025-03-06T17:15:25.249086" level="INFO">${RESP} = &lt;Response [200]&gt;</msg>
+<var>${RESP}</var>
+<arg>serverest</arg>
+<arg>/usuarios/${id_usuario}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-06T17:15:25.067590" elapsed="0.181513"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2025-03-06T17:15:25.249527" level="INFO">Length is 5.</msg>
+<arg>${RESP.json()}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2025-03-06T17:15:25.249205" elapsed="0.000353"/>
+</kw>
+<return>
+<value>${RESP.json()}</value>
+<status status="PASS" start="2025-03-06T17:15:25.249594" elapsed="0.000025"/>
+</return>
+<msg time="2025-03-06T17:15:25.249951" level="INFO">${USUARIO} = {'nome': 'Usuario Teste', 'email': 'fcncseqv@teste.com', 'password': 'teste123', 'administrador': 'true', '_id': 'UxpKjnnbe3iU02gW'}</msg>
+<var>${USUARIO}</var>
+<arg>${ID_USUARIO}</arg>
+<status status="PASS" start="2025-03-06T17:15:25.066807" elapsed="0.183162"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${USUARIO["nome"]}</arg>
+<arg>Usuario Teste</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-06T17:15:25.250305" elapsed="0.000366"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${USUARIO["email"]}</arg>
+<arg>${EMAIL}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-06T17:15:25.250952" elapsed="0.000297"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${USUARIO["administrador"]}</arg>
+<arg>true</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-06T17:15:25.251515" elapsed="0.000306"/>
+</kw>
+<kw name="Excluir Usuario" owner="usuarios_keywords">
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2025-03-06T17:15:25.422884" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/UxpKjnnbe3iU02gW 
+ path_url=/usuarios/UxpKjnnbe3iU02gW 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-06T17:15:25.423195" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/UxpKjnnbe3iU02gW 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': 'a7394a06719d9f60b200062e4c3ef570', 'Date': 'Thu, 06 Mar 2025 20:16:06 GMT', 'Server': 'Google Frontend', 'Content-Length': '51'} 
+ body={
+    "message": "Registro excluído com sucesso"
+} 
+ </msg>
+<msg time="2025-03-06T17:15:25.423422" level="INFO">${RESP} = &lt;Response [200]&gt;</msg>
+<var>${RESP}</var>
+<arg>serverest</arg>
+<arg>/usuarios/${id_usuario}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-03-06T17:15:25.252308" elapsed="0.171167"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESP.json()["message"]}</arg>
+<arg>Registro excluído com sucesso</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-03-06T17:15:25.423752" elapsed="0.000999"/>
+</kw>
+<arg>${ID_USUARIO}</arg>
+<status status="PASS" start="2025-03-06T17:15:25.252117" elapsed="0.172767"/>
+</kw>
+<doc>Este teste cadastra um novo usuário, consulta-o e depois o exclui</doc>
+<tag>regressao</tag>
+<tag>usuarios</tag>
+<status status="PASS" start="2025-03-06T17:15:24.719491" elapsed="0.706045"/>
+</test>
+<doc>Testes de API para o endpoint de Usuários do ServerRest</doc>
+<status status="PASS" start="2025-03-06T17:15:24.705641" elapsed="0.722434"/>
+</suite>
+<status status="FAIL" start="2025-03-06T17:15:22.147820" elapsed="3.282903"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">carrinhos</stat>
+<stat pass="1" fail="0" skip="0">login</stat>
+<stat pass="0" fail="1" skip="0">produtos</stat>
+<stat pass="2" fail="2" skip="0">regressao</stat>
+<stat pass="1" fail="0" skip="0">usuarios</stat>
+</tag>
+<suite>
+<stat name="Api" id="s1" pass="2" fail="2" skip="0">Api</stat>
+<stat name="Login Tests" id="s1-s1" pass="1" fail="0" skip="0">Api.Login Tests</stat>
+<stat name="Produtos Tests" id="s1-s2" pass="0" fail="2" skip="0">Api.Produtos Tests</stat>
+<stat name="Usuarios Tests" id="s1-s3" pass="1" fail="0" skip="0">Api.Usuarios Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
