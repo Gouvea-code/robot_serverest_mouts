@@ -116,4 +116,4 @@ robot -d results -i positivo api/tests frontend/tests
 
 ## Autor
 
-Seu Nome - [seu-email@example.com](mailto:seu-email@example.com)
+Igor Gouvea - [ygorvicente@gmail.com](mailto:ygorvicente@gmail.com)
