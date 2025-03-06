@@ -4,16 +4,26 @@ Este projeto contém testes automatizados para a aplicação ServeRest, utilizan
 
 ## Estrutura do Projeto
 
-```
 ├── README.md
 ├── frontend/
 │   └── tests/
-│       └── frontend_tests.robot
+│       └── cadastro.robot
+│       └── carrinho.robot
+│       └── login.robot
 ├── api/
 │   └── tests/
-│       └── api_tests.robot
+│       └── login_tests.robot
+        └── produtos_tests.robot
+        └── usuarios_tests.robot
 └── resources/
-    └── common.robot
+    ├── keywords/
+    └── common_keywords.robot
+    └── login_keywords.robot
+    └── produtos_keywords.robot
+    └── usuarios_keywords.robot
+    keywords_api.robot
+    keywords_frontend.robot
+    variables.robot
 ```
 
 ## Pré-requisitos
@@ -28,8 +38,8 @@ Este projeto contém testes automatizados para a aplicação ServeRest, utilizan
 
 1. Clone este repositório:
 ```bash
-git clone https://github.com/seu-usuario/serverest-automation.git
-cd serverest-automation
+git clone https://github.com/Gouvea-code/robot_serverest_mouts.git
+cd robot_serverest_mouts
 ```
 
 2. Instale as dependências:
