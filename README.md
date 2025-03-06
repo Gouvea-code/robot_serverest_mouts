@@ -4,6 +4,7 @@ Este projeto contém testes automatizados para a aplicação ServeRest, utilizan
 
 ## Estrutura do Projeto
 
+```
 ├── README.md
 ├── frontend/
 │   └── tests/
